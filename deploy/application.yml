@@ -1,0 +1,75 @@
+logging:
+  config: "log4j2-spring.xml"
+
+server:
+  port: 8080
+  servlet:
+    context-path: "/portfolio-api"
+
+management:
+  endpoint:
+    health:
+      show-components: "always"
+      show-details: "always"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    swagger-description: Portfolio API Documentation
+    swagger-title: Portfolio API
+    version: openapi_3_0
+  packages-to-scan: com.lb.portfolio.api.controller
+
+spring:
+  application:
+    name: "portfolio-api"
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${database_url}
+    username: ${database_username}
+    password: ${database_password}
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 100
+      minimum-idle: 1000
+
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      ADJUST_DATES_TO_CONTEXT_TIME_ZONE: false
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_PROPERTIES: true
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+      INDENT_OUTPUT: true
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_DATES_WITH_ZONE_ID: true
+
+  mail:
+    host: ${smtp_host}
+    port: 587
+    username: ${smtp_username}
+    password: ${smtp_password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+app:
