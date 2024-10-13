@@ -1,0 +1,71 @@
+logging:
+  config: "log4j2-spring.xml"
+
+server:
+  port: 8080
+
+management:
+  endpoint:
+    health:
+      show-components: "always"
+      show-details: "always"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    swagger-description: Portfolio API Documentation
+    swagger-title: Portfolio API
+    version: openapi_3_0
+
+spring:
+  application:
+    name: "portfolio-api"
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://35.198.43.208/portfoliositedb
+    username: "lbaptista95"
+    password: "PPRVBD14)nG_8jLc"
+    hikari:
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 100
+      minimum-idle: 1000
+
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      ADJUST_DATES_TO_CONTEXT_TIME_ZONE: false
+      FAIL_ON_UNKNOWN_PROPERTIES: false
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_PROPERTIES: true
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+      INDENT_OUTPUT: true
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_DATES_WITH_ZONE_ID: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: luispace512@gmail.com
+    password: SECRET
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+  webflux:
+    base-path: "/portfolio-api"
+
+app:
